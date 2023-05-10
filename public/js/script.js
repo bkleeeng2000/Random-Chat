@@ -16,8 +16,11 @@ const drawNewChat = (message) => {
 };
 
 // GlobalSocket Event
-socket.on('user_connected', (userName) => console.log(`${userName} connected`));
-
+socket.on('user_connected', (userName) => drawNewChat(`${userName} connected`));
+socket.on('new_chat', (data) => {
+  const { chat, username } = data;
+  drawNewChat(`${username} : ${chat}`);
+});
 // event callback function
 const handleSubmit = (event) => {
   event.preventDefault();
@@ -25,7 +28,7 @@ const handleSubmit = (event) => {
   if (inputValue === '') return;
 
   socket.emit('submit_chat', inputValue);
-  drawNewChat(inputValue);
+  drawNewChat(`me : ${inputValue}`);
 };
 
 function helloUser() {
