@@ -61,7 +61,7 @@ export class ChatsGateway implements OnGatewayDisconnect {
 
     socket.broadcast.emit('new_chat', {
       chat,
-      username: socket.id
+      username: socketObj.username
     });
   }
 }
